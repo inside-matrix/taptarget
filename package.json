@@ -1,0 +1,24 @@
+{
+	"name": "taptarget",
+	"version": "1.0.0",
+	"description": "Javascript Guided Tour of a web application similar to https://github.com/KeepSafe/TapTargetView",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc & lessc lib/*.less dist/index.css"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/inside-matrix/taptarget.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/inside-matrix/taptarget/issues"
+	},
+	"homepage": "https://github.com/inside-matrix/taptarget#readme",
+	"devDependencies": {
+		"typescript": "^2.8.3"
+	}
+}
