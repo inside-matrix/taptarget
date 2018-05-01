@@ -1,0 +1,96 @@
+:root {
+  --targetWidth: 50px;
+  --targetOuterWidth: 15px;
+  --targetOuterGrowScale: 1.4;
+  --targetOuterBoomWidth: 180px;
+  --duration: 0.5s;
+  --spaceWidth: 800px;
+  --zIndex: 1000;
+  --spaceColor: #00bcd4;
+  --spaceShadowColor: #607d8b;
+  --titleColor: white;
+  --descriptionColor: white;
+  --targetX: 40px;
+  --targetY: 40px;
+  --left: calc(var(--targetX) - var(--targetWidth) / 2 - var(--targetOuterWidth));
+  --top: calc(var(--targetY) - var(--targetWidth) / 2 - var(--targetOuterWidth));
+}
+@keyframes taptarget_target {
+  0% {
+    border-width: var(--targetOuterWidth);
+    left: var(--left);
+    top: var(--top);
+  }
+  100% {
+    border-width: calc(var(--targetOuterWidth) * var(--targetOuterGrowScale));
+    left: calc(var(--left) - var(--targetOuterWidth) * (var(--targetOuterGrowScale) - 1));
+    top: calc(var(--top) - var(--targetOuterWidth) * (var(--targetOuterGrowScale) - 1));
+  }
+}
+@keyframes taptarget_targetouter {
+  0% {
+    border-width: var(--targetOuterWidth);
+    left: var(--left);
+    top: var(--top);
+    border-color: #ffffff;
+  }
+  100% {
+    border-width: var(--targetOuterBoomWidth);
+    left: calc(var(--left) - var(--targetOuterBoomWidth) + var(--targetOuterWidth));
+    top: calc(var(--top) - var(--targetOuterBoomWidth) + var(--targetOuterWidth));
+    border-color: rgba(255, 255, 255, 0);
+  }
+}
+.taptarget {
+  position: absolute;
+  z-index: var(--zIndex);
+}
+.taptarget .taptarget-space {
+  width: var(--spaceWidth);
+  height: calc(var(--spaceWidth) + 2 * var(--targetOuterWidth));
+  border-width: calc((var(--spaceWidth) - var(--targetWidth)) / 2);
+  border-color: var(--spaceColor);
+  background: transparent;
+  border-style: solid;
+  box-shadow: 5px 5px 10px var(--spaceShadowColor);
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  border-radius: 100%;
+  left: calc(-var(--spaceWidth) / 2 + var(--targetX));
+  top: calc(-var(--spaceWidth) / 2 + var(--targetY) - var(--targetOuterWidth));
+}
+.taptarget .taptarget-space .taptarget-title {
+  color: var(--titleColor);
+}
+.taptarget .taptarget-space .taptarget-description {
+  color: var(--descriptionColor);
+}
+.taptarget .taptarget-target {
+  transition: all var(--duration) linear;
+  animation: taptarget_target var(--duration) linear 0s infinite alternate;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 100%;
+  border-color: white;
+  border-style: solid;
+  text-align: center;
+  z-index: calc(var(--zIndex) + 2);
+  box-sizing: content-box;
+  width: var(--targetWidth);
+  height: var(--targetWidth);
+}
+.taptarget .taptarget-target-outer {
+  transition: all calc(var(--duration) * 2) linear;
+  animation: taptarget_targetouter calc(var(--duration) * 2) linear calc(var(--duration) / 2) infinite;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 100%;
+  border-color: white;
+  border-style: solid;
+  text-align: center;
+  width: var(--targetWidth);
+  height: var(--targetWidth);
+  z-index: calc(var(--zIndex) + 1);
+  box-sizing: content-box;
+}
+.taptarget.taptarget-hidden {
+  display: none;
+}
