@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class TapTarget {
     constructor(config) {
         this.config = config;
@@ -95,3 +97,4 @@ TapTarget.descriptionClassName = 'taptarget-description';
 TapTarget.targetClassName = 'taptarget-target';
 TapTarget.targetOuterClassName = 'taptarget-target-outer';
 TapTarget.hiddenClassName = 'taptarget-hidden';
+exports.TapTarget = TapTarget;

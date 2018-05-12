@@ -1,4 +1,4 @@
-declare class TapTarget {
+export declare class TapTarget {
     private config;
     private static readonly ttClassName;
     private static readonly spaceClassName;

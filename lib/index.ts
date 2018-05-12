@@ -1,4 +1,4 @@
-class TapTarget {
+export class TapTarget {
 	private static readonly ttClassName: string = 'taptarget';
 	private static readonly spaceClassName: string = 'taptarget-space';
 	private static readonly titleClassName: string = 'taptarget-title';

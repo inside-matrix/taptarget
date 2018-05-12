@@ -1,6 +1,6 @@
 {
 	"name": "taptarget",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Javascript Guided Tour of a web application similar to https://github.com/KeepSafe/TapTargetView",
 	"main": "index.js",
 	"scripts": {
