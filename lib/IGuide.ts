@@ -1,4 +1,4 @@
-interface IGuide {
+export interface IGuide {
 	targetX: number;
 	targetY: number;
 	title: string;

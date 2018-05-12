@@ -1,3 +1,6 @@
+import { IConfig } from './IConfig';
+import { IGuide } from './IGuide';
+
 export class TapTarget {
 	private static readonly ttClassName: string = 'taptarget';
 	private static readonly spaceClassName: string = 'taptarget-space';

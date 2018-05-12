@@ -1,4 +1,4 @@
-interface IConfig {
+export interface IConfig {
 	targetWidth?: number;
 	targetOuterWidth?: number;
 	targetOuterGrowScale?: number;
