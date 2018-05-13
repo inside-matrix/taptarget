@@ -1,19 +1,27 @@
 :root {
   --targetWidth: 50px;
-  --targetOuterWidth: 15px;
+  --targetHeight: 50px;
+  --targetOuterWidth: 10px;
   --targetOuterGrowScale: 1.4;
-  --targetOuterBoomWidth: 180px;
+  --targetOuterBoomWidth: 150px;
+  --borderRadius: 100%;
   --duration: 0.5s;
   --spaceWidth: 800px;
-  --zIndex: 1000;
+  --zIndex: 10000;
+  --targetColor: white;
   --spaceColor: #00bcd4;
   --spaceShadowColor: #607d8b;
   --titleColor: white;
   --descriptionColor: white;
   --targetX: 40px;
   --targetY: 40px;
+  --quadrantX: 1;
+  --quadrantY: 1;
+  --xFactor: 0;
   --left: calc(var(--targetX) - var(--targetWidth) / 2 - var(--targetOuterWidth));
-  --top: calc(var(--targetY) - var(--targetWidth) / 2 - var(--targetOuterWidth));
+  --top: calc(var(--targetY) - var(--targetHeight) / 2 - var(--targetOuterWidth));
+  --titleTopDisplacement: 0px;
+  --titleTop: calc(var(--targetY) + var(--quadrantY) * (var(--targetOuterBoomWidth) / 1.1 + var(--targetHeight) / 2 - var(--xFactor) * 50px + 30px) + (var(--quadrantY) - 1) * 60px + var(--titleTopDisplacement));
 }
 @keyframes taptarget_target {
   0% {
@@ -41,13 +49,19 @@
     border-color: rgba(255, 255, 255, 0);
   }
 }
-.taptarget {
+:global(.taptarget) {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: var(--zIndex);
 }
-.taptarget .taptarget-space {
-  width: var(--spaceWidth);
-  height: calc(var(--spaceWidth) + 2 * var(--targetOuterWidth));
+:global(.taptarget) :global(.taptarget-space) {
+  position: absolute;
+  z-index: var(--zIndex);
+  width: calc(var(--targetWidth) + 2px);
+  height: calc(var(--targetHeight) + 2 * var(--targetOuterWidth));
   border-width: calc((var(--spaceWidth) - var(--targetWidth)) / 2);
   border-color: var(--spaceColor);
   background: transparent;
@@ -55,42 +69,111 @@
   box-shadow: 5px 5px 10px var(--spaceShadowColor);
   border-bottom-left-radius: 100%;
   border-bottom-right-radius: 100%;
-  border-radius: 100%;
-  left: calc(-var(--spaceWidth) / 2 + var(--targetX));
-  top: calc(-var(--spaceWidth) / 2 + var(--targetY) - var(--targetOuterWidth));
+  border-radius: calc(var(--borderRadius) + 44%);
+  left: calc(var(--targetX) - var(--spaceWidth) / 2 - 1px);
+  top: calc(var(--targetY) - var(--targetHeight) / 2 - var(--targetOuterWidth) - var(--spaceWidth) / 2 + var(--targetWidth) / 2);
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0.3s ease-out, opacity 0.3s 0.2s ease-out;
 }
-.taptarget .taptarget-space .taptarget-title {
+:global(.taptarget) :global(.taptarget-content) {
+  position: absolute;
+  z-index: calc(var(--zIndex) + 3);
+  top: var(--titleTop);
+  left: calc(30px - var(--quadrantX) * var(--xFactor) * 15px);
+  margin: 0.7em;
+  padding: 1em;
+  max-width: calc(var(--spaceWidth) * 0.4);
+  opacity: 1;
+  transition: transform 0.3s ease-out, opacity 0.3s 0.2s ease-out;
+}
+:global(.taptarget) :global(.taptarget-content) :global(.taptarget-title) {
   color: var(--titleColor);
+  font-size: 1.3em;
+  border-bottom: 1px solid var(--titleColor);
+  margin-bottom: 0.5em;
+  padding-bottom: 0.1em;
 }
-.taptarget .taptarget-space .taptarget-description {
+:global(.taptarget) :global(.taptarget-content) :global(.taptarget-description) {
   color: var(--descriptionColor);
 }
-.taptarget .taptarget-target {
+:global(.taptarget) :global(.taptarget-content) :global(.taptarget-okay-btn) {
+  color: white;
+  border: 0;
+  padding: 0 20px;
+  min-width: 88px;
+  box-sizing: border-box;
+  min-height: 36px;
+  box-shadow: 1px 1px 5px #000000a8;
+  background: #607d8b;
+  border-radius: 3px;
+  text-transform: uppercase;
+  float: left;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+:global(.taptarget) :global(.taptarget-content) :global(.taptarget-okay-btn):global(.taptarget-hidden) {
+  display: none;
+}
+:global(.taptarget) :global(.taptarget-target) {
+  position: absolute;
   transition: all var(--duration) linear;
   animation: taptarget_target var(--duration) linear 0s infinite alternate;
-  background: rgba(255, 255, 255, 0);
-  border-radius: 100%;
-  border-color: white;
+  background-color: transparent;
+  border-radius: var(--borderRadius);
+  border-color: var(--targetColor);
   border-style: solid;
   text-align: center;
   z-index: calc(var(--zIndex) + 2);
   box-sizing: content-box;
   width: var(--targetWidth);
-  height: var(--targetWidth);
+  height: var(--targetHeight);
 }
-.taptarget .taptarget-target-outer {
+:global(.taptarget) :global(.taptarget-target-outer) {
+  position: absolute;
   transition: all calc(var(--duration) * 2) linear;
   animation: taptarget_targetouter calc(var(--duration) * 2) linear calc(var(--duration) / 2) infinite;
-  background: rgba(255, 255, 255, 0);
-  border-radius: 100%;
-  border-color: white;
+  background: transparent;
+  border-color: transparent;
+  border-radius: var(--borderRadius);
   border-style: solid;
   text-align: center;
   width: var(--targetWidth);
-  height: var(--targetWidth);
+  height: var(--targetHeight);
   z-index: calc(var(--zIndex) + 1);
   box-sizing: content-box;
 }
-.taptarget.taptarget-hidden {
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-space) {
+  visibility: hidden;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+}
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-content) {
   display: none;
+}
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-content):global(.taptarget-plain-message) {
+  display: block;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
+  margin: 0.5rem;
+  padding: 1em;
+  background-color: var(--spaceColor);
+  box-shadow: 5px 5px 10px var(--spaceShadowColor);
+  border-radius: 5px;
+  max-width: none;
+}
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-content):global(.taptarget-plain-message) :global(.taptarget-okay-btn) {
+  float: right;
+}
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-target) {
+  display: none;
+}
+:global(.taptarget):global(.taptarget-hidden) :global(.taptarget-target-outer) {
+  display: none;
+}
+:global(.taptarget-active) {
+  overflow: hidden !important;
 }

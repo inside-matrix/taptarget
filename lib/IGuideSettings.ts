@@ -1,5 +1,4 @@
-export interface IConfig {
-	targetWidth?: number;
+export interface IGuideSettings {
 	targetOuterWidth?: number;
 	targetOuterGrowScale?: number;
 	targetOuterBoomWidth?: number;
